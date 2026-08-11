@@ -151,7 +151,7 @@ if st.session_state.current_step >= 3:
         
         doufám, že sis dnešní večer užil na maximum! 
         Chtěla jsem Ti udělat radost něčím aktuálním, netradičním a ukázat Ti, jak moc pro mě znamenáš. 
-        Děkuju Ti za všechny společné chvíle, za to, jaký jsi, a přeju Ti ten nejkrásnější nový rok života plný zdravý a splněných přání! ✨
+        Děkuju Ti za všechny společné chvíle, za to, jaký jsi, a přeju Ti ten nejkrásnější nový rok života plný zdraví a splněných přání! ✨
         """)
         
         st.markdown("<h2 style='text-align: center; color: #ff4b4b;'>Ľúbim ťě! ❤️</h2>", unsafe_allow_html=True)
