@@ -27,7 +27,7 @@ if "current_step" not in st.session_state:
 
 
 # --- 3. ÚVODNÍ STRÁNKA ---
-st.title("Všechno nejlepší k narozeninám! 🎉")
+st.title("🎂 Všechno nejlepší k narozeninám! 🎉")
 st.write("Éra papírových přání je fuč! Letos máš v rukách tuto malou aplikaci s programem dnešního večera ❤️")
 st.divider()
 
@@ -90,7 +90,7 @@ if st.session_state.current_step >= 1:
     
     # Tlačítko pro odemčení dalšího kroku (mapy)
     if st.session_state.current_step == 1:
-        if st.button("Jsem doma / připraven vyrazit dál! 🚘"):
+        if st.button("Jsem doma, připraven vyrazit dál! 🚘"):
             st.session_state.current_step = 2
             st.rerun()
 
@@ -115,8 +115,8 @@ if st.session_state.current_step >= 2:
 # KROK 3 A DÁLE: Harmonogram a závěr
 if st.session_state.current_step >= 3:
     st.write("---")
-    st.write("📍 *Dojel jsi na místo, kde se bude dnešní oslava odehrávat.*")
-    st.subheader("🗺️ Harmonogram dnešní tajné mise:")
+    st.write("📍 *Dojel jsi na místo, kde se bude dneska slavit!*")
+    st.subheader("🗺️ A jaký je harmonogram?")
 
     # Počet odemčených bodů harmonogramu (krok 3 = 1 bod, krok 4 = 2 body, atd.)
     pocet_odemcenych = st.session_state.current_step - 2
@@ -136,8 +136,8 @@ if st.session_state.current_step >= 3:
     # 2. Tlačítko pro odemčení závěrečného dopisu
     elif st.session_state.current_step == len(kroky_vecera) + 2:
         st.divider()
-        st.write("✨ **Program máme úspěšně za sebou! Ještě tu pro tebe ale něco mám...**")
-        if st.button("💌 Odemknout závěrečný dopis / vzkaz"):
+        st.write("✨ **Dnešní program se chýlí ke svému konci! Ještě tu pro tebe ale něco mám...**")
+        if st.button("💌 Odemknout závěrečný vzkaz"):
             st.session_state.current_step += 1
             st.rerun()
 
@@ -150,8 +150,8 @@ if st.session_state.current_step >= 3:
         💌 **Milý Kubko,**
         
         doufám, že sis dnešní večer maximálně užil! 
-        Chtěla jsem ti udělat radost něčím aktuálním, netradičním a ukázat ti, co moc pro mě znamenáš. 
-        Děkuju ti za všechny společné chvíle, za to, jaký jsi, a přeji ti ten nejkrásnější nový rok života plný splněných přání! ✨
+        Chtěla jsem ti udělat radost něčím aktuálním, netradičním a ukázat ti, jak moc pro mě znamenáš. 
+        Děkuju ti za všechny společné chvíle, za to, jaký jsi, a přeji ti ten nejkrásnější nový rok života plný zdravý a splněných přání! ✨
         """)
         
         st.markdown("<h2 style='text-align: center; color: #ff4b4b;'>Ľúbim ťě! ❤️</h2>", unsafe_allow_html=True)
