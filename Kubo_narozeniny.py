@@ -27,7 +27,7 @@ if "current_step" not in st.session_state:
 
 
 # --- 3. ÚVODNÍ STRÁNKA ---
-st.title("🎂 Všechno nejlepší k narozeninám! 🎉")
+st.title("Všechno nejlepší k narozeninám! 🎉")
 st.write("Éra papírových přání je fuč! Letos máš v rukách tuto malou aplikaci s programem dnešního večera ❤️")
 st.divider()
 
@@ -149,9 +149,9 @@ if st.session_state.current_step >= 3:
         st.info("""
         💌 **Milý Kubko,**
         
-        doufám, že sis dnešní večer maximálně užil! 
-        Chtěla jsem ti udělat radost něčím aktuálním, netradičním a ukázat ti, jak moc pro mě znamenáš. 
-        Děkuju ti za všechny společné chvíle, za to, jaký jsi, a přeji ti ten nejkrásnější nový rok života plný zdravý a splněných přání! ✨
+        doufám, že sis dnešní večer užil na maximum! 
+        Chtěla jsem Ti udělat radost něčím aktuálním, netradičním a ukázat Ti, jak moc pro mě znamenáš. 
+        Děkuju Ti za všechny společné chvíle, za to, jaký jsi, a přeju Ti ten nejkrásnější nový rok života plný zdravý a splněných přání! ✨
         """)
         
         st.markdown("<h2 style='text-align: center; color: #ff4b4b;'>Ľúbim ťě! ❤️</h2>", unsafe_allow_html=True)
