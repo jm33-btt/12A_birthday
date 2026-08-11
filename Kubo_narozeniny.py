@@ -64,7 +64,7 @@ kroky_vecera = [
     {
         "čas": "18:15", 
         "název": "Cesta k výhře vede přes duhový most! 🌈", 
-        "popis": "Protože víme, jak moc máš rád hry, pojďme si jednu zahrát!"
+        "popis": "Protože oba dobře víme, jak moc máš rád hry, pojďme si jednu zahrát!"
     },
     {
         "čas": "19:20", 
