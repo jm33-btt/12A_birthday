@@ -154,4 +154,4 @@ if st.session_state.current_step >= 3:
         Děkuju Ti za všechny společné chvíle, za to, jaký jsi, a přeju Ti ten nejkrásnější nový rok života plný zdraví a splněných přání! ✨
         """)
         
-        st.markdown("<h2 style='text-align: center; color: #ff4b4b;'>Ľúbim ťě! ❤️</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: #ff4b4b;'>Ľúbim tě! ❤️</h2>", unsafe_allow_html=True)
