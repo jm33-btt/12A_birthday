@@ -3,14 +3,14 @@ import streamlit as st
 st.set_page_config(page_title="Všechno nejlepší!", page_icon="🎂", layout="centered")
 
 # --- 1. ZABEZPEČENÍ HESLEM ---
-TAJNE_HESLO = "1812"  
+TAJNE_HESLO = "1812"  # <-- Nastav si vlastní heslo nebo PIN
 
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
 if not st.session_state.authenticated:
     st.title("🔒 Vstup jen pro oslavence!")
-    heslo_input = st.text_input("Zadej tajné heslo pro odemknutí dnešního večera (Jeden náš společný datum?):", type="password")
+    heslo_input = st.text_input("Zadej tajné heslo pro odemknutí dnešního večera (zkus jeden náš společný datum):", type="password")
     
     if st.button("Odemknout 🔓"):
         if heslo_input == TAJNE_HESLO:
@@ -22,9 +22,6 @@ if not st.session_state.authenticated:
 
 
 # --- 2. INICIALIZACE POČÍTADLA KROKŮ ---
-# Krok 0 = Úvodní otázka "Jsi připraven?"
-# Krok 1 = Cesta domů / odkaz na mapu
-# Krok 2+ = Jednotlivé body harmonogramu
 if "current_step" not in st.session_state:
     st.session_state.current_step = 0
 
@@ -62,30 +59,44 @@ kroky_vecera = [
     {
         "čas": "18:00", 
         "název": "Zahájení pikniku 🍕", 
-        "popis": "Máme s sebou kupu krabiček, bašti, co hrdlo ráčí, ať ti to v následující hodince pálí!"
+        "popis": "Máme s sebou kupu krabiček. Bašti, co hrdlo ráčí, ať ti to v následující hodince pálí!"
     },
     {
         "čas": "18:15", 
-        "název": "Cesta k výhře přes duhový most! 🌈", 
+        "název": "Cesta k výhře vede přes duhový most! 🌈", 
         "popis": "Protože víme, jak moc máš rád hry, pojďme si jednu zahrát!"
     },
     {
         "čas": "19:20", 
         "název": "Vesmírná zábava 🎬", 
-        "popis": "Pojďme si část večera užít s jednou vesmírnou hitparádou, která připadla právě na tvoje narozeniny! Čeká na nás částečné zatmění Slunce, které bude vrcholit ve 20:12!"
+        "popis": "Během další části večera si užijeme jednu vesmírnou hitparádu, která připadla právě na tvoje narozeniny! Čeká nás částečné zatmění Slunce, které bude vrcholit ve 20:12!"
     },
     {
         "čas": "20:12", 
         "název": "Vesmírná zábava 2.0 🌠", 
-        "popis": "Jestli stále nemáš dost sledování oblohy, čeká nás sledování Perseidů."
+        "popis": "Jestli stále nemáš dost, můžeš si vybrat jednu z těch stovek padajících hvězd a něco si přát. ✨"
     }
 ]
 
 
-# KROK 1 A DÁLE: Postupné zobrazování
+# ==========================================
+# POSTUPNÉ ODEMYKÁNÍ KROKŮ
+# ==========================================
+
+# KROK 1: Instrukce k odjezdu autem
 if st.session_state.current_step >= 1:
     st.success("### 🎉 Mise zahájena!")
     st.info("🚗 **Krok 1:** Teď nasedni do auta a dojeď domů. Na další instrukce počkej.")
+    
+    # Tlačítko pro odemčení dalšího kroku (mapy)
+    if st.session_state.current_step == 1:
+        if st.button("Jsem doma / připraven vyrazit dál! 🚘"):
+            st.session_state.current_step = 2
+            st.rerun()
+
+# KROK 2: Odkaz na mapu a tajné místo
+if st.session_state.current_step >= 2:
+    st.write("---")
     st.write("Nech se vézt... kam? Klikni na odkaz níže a dozvíš se víc! 👇")
     
     st.link_button(
@@ -94,37 +105,53 @@ if st.session_state.current_step >= 1:
         type="primary"
     )
     
-    st.write("---")
-
-    # Pokud jsme na místě (Krok 1), zobrazíme tlačítko pro zahájení harmonogramu
-    if st.session_state.current_step == 1:
-        st.write("📍 *Až dorazíš na místo, klikni pro odemčení prvního bodu programu:*")
+    # Tlačítko pro potvrzení příjezdu na místo
+    if st.session_state.current_step == 2:
+        st.write("")
         if st.button("Jsme na místě! Co nás čeká? 🔓"):
-            st.session_state.current_step = 2
+            st.session_state.current_step = 3
             st.rerun()
 
-    # KROK 2 AŽ N: Postupné zobrazování harmonogramu
-    if st.session_state.current_step >= 2:
-        st.subheader("🗺️ Harmonogram dnešní tajné mise:")
+# KROK 3 A DÁLE: Harmonogram a závěr
+if st.session_state.current_step >= 3:
+    st.write("---")
+    st.write("📍 *Dojel jsi na místo, kde se bude dnešní oslava odehrávat.*")
+    st.subheader("🗺️ Harmonogram dnešní tajné mise:")
 
-        # Spočítáme, kolik bodů z harmonogramu se má zobrazit
-        # current_step 2 zobrazí 1 bod (index 0), current_step 3 zobrazí 2 body (indexy 0 a 1), atd.
-        pocet_odemcenych = st.session_state.current_step - 1
+    # Počet odemčených bodů harmonogramu (krok 3 = 1 bod, krok 4 = 2 body, atd.)
+    pocet_odemcenych = st.session_state.current_step - 2
 
-        for i in range(min(pocet_odemcenych, len(kroky_vecera))):
-            krok = kroky_vecera[i]
-            with st.expander(f"⏰ **{krok['čas']}** – {krok['název']}", expanded=True):
-                st.write(krok["popis"])
+    for i in range(min(pocet_odemcenych, len(kroky_vecera))):
+        krok = kroky_vecera[i]
+        with st.expander(f"⏰ **{krok['čas']}** – {krok['název']}", expanded=True):
+            st.write(krok["popis"])
 
-        # Tlačítko pro odemčení dalšího kroku
-        if pocet_odemcenych < len(kroky_vecera):
-            st.write("")
-            if st.button(f"👉 Odemknout další bod programu ({pocet_odemcenych + 1}/{len(kroky_vecera)})"):
-                st.session_state.current_step += 1
-                st.rerun()
-        else:
-            # Všechny kroky jsou odemčeny
-            st.balloons()
-            st.divider()
-            st.markdown("<h2 style='text-align: center; color: #ff4b4b;'>Doufám, že sis dnešní večer užil! Ľúbim tě ❤️</h2>", unsafe_allow_html=True)
+    # 1. Postupné odemykání jednotlivých bodů programu
+    if pocet_odemcenych < len(kroky_vecera):
+        st.write("")
+        if st.button(f"👉 Odemknout další bod programu ({pocet_odemcenych + 1}/{len(kroky_vecera)})"):
+            st.session_state.current_step += 1
+            st.rerun()
 
+    # 2. Tlačítko pro odemčení závěrečného dopisu
+    elif st.session_state.current_step == len(kroky_vecera) + 2:
+        st.divider()
+        st.write("✨ **Program máme úspěšně za sebou! Ještě tu pro tebe ale něco mám...**")
+        if st.button("💌 Odemknout závěrečný dopis / vzkaz"):
+            st.session_state.current_step += 1
+            st.rerun()
+
+    # 3. Zobrazení dopisu a finálního vyznání
+    elif st.session_state.current_step >= len(kroky_vecera) + 3:
+        st.balloons()
+        st.divider()
+        
+        st.info("""
+        💌 **Milý Kubko,**
+        
+        doufám, že sis dnešní večer maximálně užil! 
+        Chtěla jsem ti udělat radost něčím aktuálním, netradičním a ukázat ti, co moc pro mě znamenáš. 
+        Děkuju ti za všechny společné chvíle, za to, jaký jsi, a přeji ti ten nejkrásnější nový rok života plný splněných přání! ✨
+        """)
+        
+        st.markdown("<h2 style='text-align: center; color: #ff4b4b;'>Ľúbim ťě! ❤️</h2>", unsafe_allow_html=True)
