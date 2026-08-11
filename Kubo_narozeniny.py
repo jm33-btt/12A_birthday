@@ -27,7 +27,7 @@ if "current_step" not in st.session_state:
 
 
 # --- 3. ÚVODNÍ STRÁNKA ---
-st.title("🎂 Všechno nejlepší k narozeninám! 🎉")
+st.title("Všechno nejlepší k narozeninám! 🎉")
 st.write("Éra papírových přání je fuč! Letos máš v rukách tuto malou aplikaci s programem dnešního večera ❤️")
 st.divider()
 
